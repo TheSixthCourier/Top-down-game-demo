@@ -1,0 +1,79 @@
+import pygame
+
+#CONSTANTS
+LEFT = 0
+RIGHT = 1
+UP = 2
+DOWN = 3
+SPACE = 4
+W = 5
+
+direction = RIGHT
+keys = [False, False, False, False, False]
+
+
+class player:
+    def __init__(self):
+        #player variables
+        self.xpos = 395
+        self.ypos = 455
+        self.vx = 0
+        self.vy = 0
+    def move(self, keys, map):
+        #LEFT MOVE
+        if keys[LEFT] == True:
+            self.vx = -5
+            direction = LEFT
+            print("Left")
+            print (self.xpos)
+        #RIGHT MOVE
+        elif keys[RIGHT] == True:
+            self.vx = 5
+            direction = RIGHT
+            print("Right")
+            print (self.xpos)
+        else:
+            self.vx = 0
+            
+        #UP MOVE  
+        if keys[UP] == True:
+            self.vy = -5
+            direction = UP
+            print("Up")
+            print (self.ypos)
+        #DOWN MOVE
+        elif keys[DOWN] == True:
+            self.vy =5
+            direction = DOWN
+            print("Down")
+            print (self.ypos)
+        else:
+            self.vy = 0
+        
+        self.xpos+=self.vx #updates Player X position
+        self.ypos+=self.vy
+        
+    #Collision
+
+    #Up
+        if map[int((self.ypos-5) / 50)][int((self.xpos) / 50)] == 2:
+            self.ypos+=5
+    #Down
+        if map[int((self.ypos+ 30 + 5) / 50)][int((self.xpos ) / 50)] == 3:
+            self.ypos-=5
+    #Right
+        if map[int((self.ypos) / 50)][int((self.xpos + 30) / 50)] == 4:
+            self.xpos-=5 
+    #Left
+        if map[int((self.ypos) / 50)][int((self.xpos ) / 50)] == 5:
+            self.xpos+=5
+            #with void
+        if map[int((self.ypos) / 50)][int((self.xpos ) / 50)] == 0:
+            self.xpos =225
+            self.ypos =225
+        
+    
+    def draw(self, screen):
+            pygame.draw.rect(screen, (250, 250, 250), (self.xpos, self.ypos, 40, 40))
+
+
